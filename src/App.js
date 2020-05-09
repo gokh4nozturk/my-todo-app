@@ -27,6 +27,7 @@ function App() {
       <div className="row justify-content-center flex-column">
         <div className="add-todo">
           <input
+            name="input"
             className="text-center"
             value={input}
             type="text"
