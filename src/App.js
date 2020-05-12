@@ -1,6 +1,8 @@
 import React, { useState, useLayoutEffect } from 'react';
 import Axios from 'axios';
 import { useFetchData } from './myhooks';
+import SimpleBar from 'simplebar-react';
+import 'simplebar/dist/simplebar.min.css';
 import './App.css';
 
 function App() {
@@ -36,6 +38,10 @@ function App() {
     setInput('');
   };
 
+  const addTodoFirst = () => {
+    alert('henüz çalışmıyor diğerini deneyiniz');
+  };
+
   const deleteTodo = (id) => {
     setTodo([...todo.filter((todos) => todos.id !== id)]);
   };
@@ -50,15 +56,17 @@ function App() {
           <div className="todo-container">
             <h6>Today's To Do</h6>
             {todofetch.status === 'success' && (
-              <div className="todo-view">
-                {todofetch.data.map((data) => (
-                  <div className="card card-main">
-                    <i className="fas fa-check-square todo-checkbox"></i>
-                    <p className="todo-p">{data.title}</p>
-                    <i className="far fa-trash-alt todo-trash"></i>
-                  </div>
-                ))}
-              </div>
+              <SimpleBar style={{ maxHeight: '45vh' }}>
+                <div className="todo-view">
+                  {todofetch.data.map((data) => (
+                    <div className="card card-main">
+                      <i className="fas fa-check-square todo-checkbox"></i>
+                      <p className="todo-p">{data.title}</p>
+                      <i className="far fa-trash-alt todo-trash"></i>
+                    </div>
+                  ))}
+                </div>
+              </SimpleBar>
             )}
             {todofetch.status !== 'success' && todofetch.status}
             {todofetch.status === 'loading' && <div>Loading</div>}
@@ -74,7 +82,7 @@ function App() {
             />
             <div className="input-group-append">
               <button
-                onClick={addTodo}
+                onClick={addTodoFirst}
                 className="btn btn-primary"
                 type="button"
                 id="button-add"
@@ -86,35 +94,47 @@ function App() {
         </div>
 
         {/* parça 2 */}
-        <div className="grid-part-2 shadow p-3 mb-5 bg-white rounded">
-          <div className="add-todo">
-            <input
-              name="input"
-              className="text-center"
-              value={input}
-              type="text"
-              placeholder="enter todo"
-              onChange={(e) => setInput(e.currentTarget.value)} //girdi kontrolü
-            />
-            <button className="btn btn-primary mt-2" onClick={addTodo}>
-              ekle
-            </button>
-          </div>
-        </div>
+        <div className="grid-part-2 shadow p-3 mb-5 bg-white rounded"></div>
 
         {/* parça 3 */}
         <div className="grid-part-3 shadow p-3 mb-5 bg-white rounded">
-          <div className="todo-view">
-            {todo.map((addedTodos) => (
-              <div className="card card-main">
-                <i className="fas fa-check-square todo-checkbox"></i>
-                <p className="todo-p">{addedTodos.input}</p>
-                <i
-                  onClick={() => deleteTodo(addedTodos.id)}
-                  className="far fa-trash-alt todo-trash"
-                ></i>
+          <div className="todo-container">
+            <h6>To Do</h6>
+            <SimpleBar style={{ maxHeight: '45vh' }}>
+              <div className="todo-view">
+                {todo.map((addedTodos) => (
+                  <div className="card card-main">
+                    <i className="fas fa-check-square todo-checkbox"></i>
+                    <p className="todo-p">{addedTodos.input}</p>
+                    <i
+                      onClick={() => deleteTodo(addedTodos.id)}
+                      className="far fa-trash-alt todo-trash"
+                    ></i>
+                  </div>
+                ))}
               </div>
-            ))}
+            </SimpleBar>
+
+            <div className="input-group mb-3 todo-add-container">
+              <input
+                value={input}
+                name="input"
+                type="text"
+                className="form-control"
+                placeholder="enter to do"
+                onChange={(e) => setInput(e.currentTarget.value)}
+              />
+              <div className="input-group-append">
+                <button
+                  onClick={addTodo}
+                  className="btn btn-primary"
+                  type="button"
+                  id="button-add"
+                >
+                  Add Todo
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -127,6 +147,7 @@ export default App;
 /*
 
 
+        
       
 
 
