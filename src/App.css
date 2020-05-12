@@ -8,27 +8,80 @@
   display: flex;
   flex-direction: column;
 }
-.todo-view {
-  margin-top: 10px;
-  display: flex;
-  flex-wrap: wrap;
+body {
+  background-color: #f7f7fb;
 }
-.card {
+.container {
+  margin-top: 70px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  grid-gap: 1em;
+  background-color: #fff;
+  border-radius: 15px;
+  height: 80vh;
+}
+.todo-container {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  width: fit-content;
+  padding: 5px;
+  height: 45vh;
+  margin-bottom: 0;
+}
+.todo-view {
+  font-size: 14px;
+  overflow: auto;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  padding: 5px;
+}
+.card-main {
+  display: grid;
+  grid-template-columns: 20px 1fr 20px;
+  grid-template-rows: 1fr;
+  align-items: center;
   margin: 5px;
-  cursor: pointer;
-  text-align: center;
   min-width: 120px;
 }
-
-.card-body {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
+.todo-checkbox {
+  grid-column: 1/2;
+  cursor: pointer;
+  margin-left: 10px;
 }
-.card-body p {
-  margin-top: 14px;
+.todo-p {
+  grid-column: 2/3;
+  margin-top: 12px;
+  margin-left: 15px;
   margin-right: 10px;
 }
-.card-body i:hover {
+
+.todo-trash {
+  grid-column: 3/4;
+  margin-right: 10px;
+}
+
+.todo-trash:hover {
   color: red;
+  cursor: pointer;
+}
+
+.todo-add-container {
+  margin-top: 20px;
+}
+
+.grid-part-1 {
+  grid-column: 1/2;
+  border: 1px solid rgba(54, 9, 9, 0.3);
+}
+.grid-part-2 {
+  grid-column: 2/3;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
+.grid-part-3 {
+  grid-column: 3/4;
+  border: 1px solid rgba(0, 0, 0, 0.3);
 }
