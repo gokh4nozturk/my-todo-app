@@ -125,7 +125,13 @@ function App() {
                 className="form-control"
                 placeholder="enter to do"
                 onChange={(e) => setInput(e.currentTarget.value)}
+                onKeyPress={(e) => {
+                  if (e.key == 'Enter') {
+                    addTodo();
+                  }
+                }}
               />
+
               <div className="input-group-append">
                 <button
                   onClick={addTodo}
