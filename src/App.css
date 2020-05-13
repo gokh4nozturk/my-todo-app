@@ -27,7 +27,7 @@ body {
   flex-direction: column;
   border-radius: 5px;
   padding: 5px;
-  height: 45vh;
+
   margin-bottom: 0;
 }
 .todo-view {
@@ -37,6 +37,7 @@ body {
   flex-wrap: nowrap;
   flex-direction: column;
   padding: 5px;
+  height: 45vh;
 }
 .card-main {
   display: grid;

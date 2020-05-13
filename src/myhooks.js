@@ -1,4 +1,4 @@
-import { useState, memo } from 'react';
+import { useState } from 'react';
 
 export function useToggle(initialValue = false) {
   const [isOpen, setOpen] = useState(initialValue);

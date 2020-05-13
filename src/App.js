@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import { useFetchData } from './myhooks';
 import SimpleBar from 'simplebar-react';
@@ -28,7 +28,7 @@ function App() {
       _todoFetch.onError('Todo gelmedi.');
     }
   }
-  useLayoutEffect(() => {
+  useEffect(() => {
     onGetTodo();
   }, []);
 
@@ -94,7 +94,9 @@ function App() {
         </div>
 
         {/* parça 2 */}
-        <div className="grid-part-2 shadow p-3 mb-5 bg-white rounded"></div>
+        <div className="grid-part-2 shadow p-3 mb-5 bg-white rounded">
+          Boş alan
+        </div>
 
         {/* parça 3 */}
         <div className="grid-part-3 shadow p-3 mb-5 bg-white rounded">
