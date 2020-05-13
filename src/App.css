@@ -27,12 +27,10 @@ body {
   flex-direction: column;
   border-radius: 5px;
   padding: 5px;
-
   margin-bottom: 0;
 }
 .todo-view {
   font-size: 14px;
-  overflow: auto;
   display: flex;
   flex-wrap: nowrap;
   flex-direction: column;
