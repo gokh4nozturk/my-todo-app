@@ -45,16 +45,20 @@ body {
   margin: 5px;
   min-width: 120px;
 }
+
 .todo-checkbox {
   grid-column: 1/2;
   cursor: pointer;
   margin-left: 10px;
+  display: block;
 }
+
 .todo-p {
   grid-column: 2/3;
   margin-top: 12px;
   margin-left: 15px;
   margin-right: 10px;
+  cursor: pointer;
 }
 
 .todo-trash {

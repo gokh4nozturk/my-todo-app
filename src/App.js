@@ -6,6 +6,7 @@ import 'simplebar/dist/simplebar.min.css';
 import './App.css';
 
 function App() {
+  const textbox = document.getElementById('input-todo');
   const [todo, setTodo] = useState([
     { id: 0, input: 'todo 1' },
     { id: 1, input: 'todo 2' },
@@ -30,12 +31,15 @@ function App() {
   }
   useEffect(() => {
     onGetTodo();
-  }, []);
+  });
 
-  const addTodo = () => {
-    // console.log(input);
-    setTodo([...todo, { input, id: todo.length }]);
-    setInput('');
+  const addTodo = (e) => {
+    if (input !== '' || textbox.value !== '') {
+      setTodo([...todo, { input, id: todo.length }]);
+      setInput('');
+    } else {
+      alert('doldur');
+    }
   };
 
   const addTodoFirst = () => {
@@ -44,6 +48,11 @@ function App() {
 
   const deleteTodo = (id) => {
     setTodo([...todo.filter((todos) => todos.id !== id)]);
+  };
+
+  const editTodo = (inputEdit, inputId) => {
+    alert(`${inputEdit} için düzenleme yapacaksınız.`);
+    textbox.value = inputEdit;
   };
 
   return (
@@ -60,7 +69,7 @@ function App() {
                 <div className="todo-view">
                   {todofetch.data.map((data) => (
                     <div className="card card-main">
-                      <i className="fas fa-check-square todo-checkbox"></i>
+                      <i className="fas fa-check-square todoo-checkbox"></i>
                       <p className="todo-p">{data.title}</p>
                       <i className="far fa-trash-alt todo-trash"></i>
                     </div>
@@ -107,7 +116,12 @@ function App() {
                 {todo.map((addedTodos) => (
                   <div className="card card-main">
                     <i className="fas fa-check-square todo-checkbox"></i>
-                    <p className="todo-p">{addedTodos.input}</p>
+                    <p
+                      onClick={() => editTodo(addedTodos.input, addedTodos.id)}
+                      className="todo-p"
+                    >
+                      {addedTodos.input}
+                    </p>
                     <i
                       onClick={() => deleteTodo(addedTodos.id)}
                       className="far fa-trash-alt todo-trash"
@@ -119,6 +133,7 @@ function App() {
 
             <div className="input-group mb-3 todo-add-container">
               <input
+                id="input-todo"
                 value={input}
                 name="input"
                 type="text"
@@ -126,7 +141,7 @@ function App() {
                 placeholder="enter to do"
                 onChange={(e) => setInput(e.currentTarget.value)}
                 onKeyPress={(e) => {
-                  if (e.key == 'Enter') {
+                  if (e.key === 'Enter') {
                     addTodo();
                   }
                 }}
@@ -151,3 +166,13 @@ function App() {
 }
 
 export default App;
+
+/*
+<i
+                      onClick={(e) => {
+                        if (e.target.tagName == 'P') {
+                        }
+                      }}
+                      className="fas fa-check-square todo-checkbox"
+                    ></i>
+*/
