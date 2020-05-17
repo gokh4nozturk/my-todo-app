@@ -30,7 +30,7 @@ function App() {
     }
   }
   useEffect(() => {
-    onGetTodo();
+    // onGetTodo();
   });
 
   const addTodo = (e) => {
