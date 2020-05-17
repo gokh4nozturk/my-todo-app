@@ -60,6 +60,9 @@ body {
   margin-right: 10px;
   cursor: pointer;
 }
+.todo-p-check {
+  color: aqua;
+}
 
 .todo-trash {
   grid-column: 3/4;

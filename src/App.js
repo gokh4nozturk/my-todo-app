@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import Axios from 'axios';
 import { useFetchData } from './myhooks';
 import SimpleBar from 'simplebar-react';
@@ -7,10 +7,13 @@ import './App.css';
 
 function App() {
   const textbox = document.getElementById('input-todo');
+  const checkBox = document.querySelector('.todo-checkbox');
+  const todoP = document.querySelector('.todo-p');
+
   const [todo, setTodo] = useState([
-    { id: 0, input: 'todo 1' },
-    { id: 1, input: 'todo 2' },
-    { id: 2, input: 'todo 3' },
+    { id: 0, input: 'todo 1', completed: false },
+    { id: 1, input: 'todo 2', completed: false },
+    { id: 2, input: 'todo 3', completed: false },
   ]);
   const [input, setInput] = useState('');
   // console.log(input);
@@ -53,6 +56,16 @@ function App() {
   const editTodo = (inputEdit, inputId) => {
     alert(`${inputEdit} için düzenleme yapacaksınız.`);
     textbox.value = inputEdit;
+  };
+
+  const editCompleted = () => {
+    const checkBox = document.querySelector('.todo-checkbox');
+    const todoP = document.querySelector('.todo-p');
+    if (checkBox.checked == true) {
+      todoP.classList.add('todo-p-check');
+    } else {
+      todoP.classList.remove('todo-p-check');
+    }
   };
 
   return (
@@ -115,7 +128,13 @@ function App() {
               <div className="todo-view">
                 {todo.map((addedTodos) => (
                   <div className="card card-main">
-                    <i className="fas fa-check-square todo-checkbox"></i>
+                    <input
+                      type="checkBox"
+                      onClick={() => {
+                        editCompleted();
+                      }}
+                      className="todo-checkbox"
+                    ></input>
                     <p
                       onClick={() => editTodo(addedTodos.input, addedTodos.id)}
                       className="todo-p"
