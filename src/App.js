@@ -166,13 +166,3 @@ function App() {
 }
 
 export default App;
-
-/*
-<i
-                      onClick={(e) => {
-                        if (e.target.tagName == 'P') {
-                        }
-                      }}
-                      className="fas fa-check-square todo-checkbox"
-                    ></i>
-*/
