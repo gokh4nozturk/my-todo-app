@@ -3,11 +3,6 @@
   justify-content: center;
   border-bottom: 2px solid red;
 }
-.add-todo {
-  margin-top: 70px;
-  display: flex;
-  flex-direction: column;
-}
 body {
   background-color: #f7f7fb;
 }
@@ -15,7 +10,7 @@ body {
   margin-top: 70px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr;
+  grid-template-rows: 10vh 1fr;
   grid-gap: 1em;
   background-color: #fff;
   border-radius: 15px;
@@ -37,6 +32,7 @@ body {
   padding: 5px;
   overflow: scroll;
   height: 45vh;
+  margin-top: 1vh;
 }
 .card-main {
   display: grid;
@@ -50,15 +46,15 @@ body {
 .todo-checkbox {
   grid-column: 1/2;
   cursor: pointer;
-  margin-left: 10px;
   display: block;
+  margin-left: 10px;
 }
 
 .todo-p {
   grid-column: 2/3;
-  margin-top: 12px;
-  margin-left: 15px;
-  margin-right: 10px;
+  margin-top: 2vh;
+  margin-left: 3vh;
+  margin-right: 3vh;
   cursor: pointer;
 }
 .todo-p-check {
@@ -68,7 +64,6 @@ body {
 
 .todo-trash {
   grid-column: 3/4;
-  margin-right: 10px;
 }
 
 .todo-trash:hover {
@@ -77,14 +72,26 @@ body {
 }
 
 .todo-add-container {
-  margin-top: 20px;
+  margin-top: 2.5vh;
 }
 
 .grid-part-1 {
-  grid-column: 1/2;
-  border: 1px solid rgba(54, 9, 9, 0.3);
+  grid-row: 1/2;
+  grid-column: 2/3;
+  display: flex;
+  justify-content: end;
 }
 .grid-part-2 {
+  grid-row: 2/3;
+  grid-column: 1/2;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
+.grid-part-3 {
+  grid-row: 2/3;
   grid-column: 2/3;
   border: 1px solid rgba(0, 0, 0, 0.3);
+}
+.app-title {
+  margin-top: 2.5vh;
+  margin-left: 1vh;
 }

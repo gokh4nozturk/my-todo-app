@@ -69,19 +69,20 @@ function App() {
   return (
     <div className="App">
       <div className="container shadow-sm p-3 mb-5 bg-white rounded">
-        <h4 style={{ marginBottom: '20px' }}>My To Do</h4>
-
+        <h4 className="app-title">My To Do</h4>
         {/* parça 1 */}
-        <div className="grid-part-1 shadow p-3 mb-5 bg-white rounded">
-          <div className="todo-container">
-            <h6>Today's To Do</h6>
-          </div>
+        <div className="grid-part-1">
+          <AddTodo
+            input={input}
+            handleChange={handleChange}
+            addTodo={addTodo}
+          />
         </div>
 
         {/* parça 2 */}
         <div className="grid-part-2 shadow p-3 mb-5 bg-white rounded">
           <div className="todo-container">
-            <h6>To Do</h6>
+            <h5 className="h5">Todos</h5>
             <div className="todo-view" ref={ref}>
               {todo.map((addedTodos) => (
                 <Todo
@@ -93,12 +94,12 @@ function App() {
                 />
               ))}
             </div>
-            <AddTodo
-              input={input}
-              handleChange={handleChange}
-              addTodo={addTodo}
-            />
           </div>
+        </div>
+
+        {/* parça 3 */}
+        <div className="grid-part-3 shadow p-3 mb-5 bg-white rounded">
+          <div className="todo-container"></div>
         </div>
       </div>
     </div>
@@ -106,3 +107,6 @@ function App() {
 }
 
 export default App;
+/*
+
+*/
