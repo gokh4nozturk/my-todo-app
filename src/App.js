@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Axios from 'axios';
 import './App.css';
-import Todo from './components/Todo';
+import Todo from './components/todo';
 import uniqid from 'uniqid';
+import AddTodo from './components/addTodo';
 
 function App() {
   const [todo, setTodo] = useState([]);
@@ -43,9 +44,7 @@ function App() {
       alert('doldur');
     }
   };
-  const addTodoFirst = () => {
-    alert('henüz çalışmıyor diğerini deneyiniz');
-  };
+
   const deleteTodo = (id) => {
     const newArray = todo.filter((todos) => todos.id !== id);
     setTodo(newArray);
@@ -63,6 +62,10 @@ function App() {
     setTodo(editTodo);
   };
 
+  const handleChange = (e) => {
+    setInput(e.currentTarget.value);
+  };
+
   return (
     <div className="App">
       <div className="container shadow-sm p-3 mb-5 bg-white rounded">
@@ -73,37 +76,12 @@ function App() {
           <div className="todo-container">
             <h6>Today's To Do</h6>
           </div>
-          <div className="input-group mb-3 todo-add-container">
-            <input
-              name="input"
-              type="text"
-              className="form-control"
-              placeholder="enter to do"
-              onChange={(e) => setInput(e.currentTarget.value)}
-            />
-            <div className="input-group-append">
-              <button
-                onClick={addTodoFirst}
-                className="btn btn-primary"
-                type="button"
-                id="button-add"
-              >
-                Add Todo
-              </button>
-            </div>
-          </div>
         </div>
 
         {/* parça 2 */}
         <div className="grid-part-2 shadow p-3 mb-5 bg-white rounded">
-          Boş alan
-        </div>
-
-        {/* parça 3 */}
-        <div className="grid-part-3 shadow p-3 mb-5 bg-white rounded">
           <div className="todo-container">
             <h6>To Do</h6>
-
             <div className="todo-view" ref={ref}>
               {todo.map((addedTodos) => (
                 <Todo
@@ -115,34 +93,11 @@ function App() {
                 />
               ))}
             </div>
-
-            <div className="input-group mb-3 todo-add-container">
-              <input
-                id="input-todo"
-                value={input}
-                name="input"
-                type="text"
-                className="form-control"
-                placeholder="enter to do"
-                onChange={(e) => setInput(e.currentTarget.value)}
-                onKeyPress={(e) => {
-                  if (e.key === 'Enter') {
-                    addTodo();
-                  }
-                }}
-              />
-
-              <div className="input-group-append">
-                <button
-                  onClick={addTodo}
-                  className="btn btn-primary"
-                  type="button"
-                  id="button-add"
-                >
-                  {typeof editMode !== 'undefined' ? 'Edit todo' : 'Add Todo'}
-                </button>
-              </div>
-            </div>
+            <AddTodo
+              input={input}
+              handleChange={handleChange}
+              addTodo={addTodo}
+            />
           </div>
         </div>
       </div>
