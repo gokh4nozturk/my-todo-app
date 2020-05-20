@@ -35,6 +35,7 @@ body {
   flex-wrap: nowrap;
   flex-direction: column;
   padding: 5px;
+  overflow: scroll;
   height: 45vh;
 }
 .card-main {

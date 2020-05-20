@@ -1,71 +1,66 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Axios from 'axios';
-import { useFetchData } from './myhooks';
-import SimpleBar from 'simplebar-react';
-import 'simplebar/dist/simplebar.min.css';
 import './App.css';
+import Todo from './components/Todo';
+import uniqid from 'uniqid';
 
 function App() {
-  const textbox = document.getElementById('input-todo');
-  const checkBox = document.querySelector('.todo-checkbox');
-  const todoP = document.querySelector('.todo-p');
-
-  const [todo, setTodo] = useState([
-    { id: 0, input: 'todo 1', completed: false },
-    { id: 1, input: 'todo 2', completed: false },
-    { id: 2, input: 'todo 3', completed: false },
-  ]);
+  const [todo, setTodo] = useState([]);
+  const [editMode, setEditMode] = useState();
   const [input, setInput] = useState('');
-  // console.log(input);
+  const ref = useRef();
 
-  const [todofetch, _todoFetch] = useFetchData();
-
-  async function onGetTodo() {
-    try {
-      _todoFetch.onLoading();
-      const data = await Axios.get(
-        'https://jsonplaceholder.typicode.com/todos'
-      ).then((response) => response.data);
-      // console.log(data);
-      _todoFetch.onSuccess(data);
-    } catch (error) {
-      _todoFetch.onError('Todo gelmedi.');
-    }
-  }
   useEffect(() => {
-    // onGetTodo();
-  });
+    dataLoad();
+  }, []);
 
-  const addTodo = (e) => {
-    if (input !== '' || textbox.value !== '') {
-      setTodo([...todo, { input, id: todo.length }]);
+  useEffect(() => {
+    ref.current.scrollTo({
+      top: ref.current.scrollHeight,
+    });
+  }, [todo]);
+
+  const dataLoad = async () => {
+    const data = await Axios.get(
+      'https://jsonplaceholder.typicode.com/todos'
+    ).then((response) => response.data);
+    setTodo(data);
+  };
+  const addTodo = () => {
+    if (input !== '' || input !== '') {
+      if (typeof editMode !== 'undefined') {
+        const todos = todo.map((todo) => {
+          if (todo.id === editMode) return { ...todo, title: input };
+          return todo;
+        });
+        setTodo(todos);
+        setEditMode(undefined);
+      } else {
+        setTodo([...todo, { title: input, id: uniqid() }]);
+      }
       setInput('');
     } else {
       alert('doldur');
     }
   };
-
   const addTodoFirst = () => {
     alert('henüz çalışmıyor diğerini deneyiniz');
   };
-
   const deleteTodo = (id) => {
-    setTodo([...todo.filter((todos) => todos.id !== id)]);
+    const newArray = todo.filter((todos) => todos.id !== id);
+    setTodo(newArray);
   };
-
   const editTodo = (inputEdit, inputId) => {
+    setEditMode(inputId);
     alert(`${inputEdit} için düzenleme yapacaksınız.`);
-    textbox.value = inputEdit;
+    setInput(inputEdit);
   };
-
-  const editCompleted = () => {
-    const checkBox = document.querySelector('.todo-checkbox');
-    const todoP = document.querySelector('.todo-p');
-    if (checkBox.checked == true) {
-      todoP.classList.add('todo-p-check');
-    } else {
-      todoP.classList.remove('todo-p-check');
-    }
+  const toggleCompleted = (id) => {
+    const editTodo = todo.map((title) => {
+      if (title.id === id) return { ...title, completed: !title.completed };
+      return title;
+    });
+    setTodo(editTodo);
   };
 
   return (
@@ -77,22 +72,6 @@ function App() {
         <div className="grid-part-1 shadow p-3 mb-5 bg-white rounded">
           <div className="todo-container">
             <h6>Today's To Do</h6>
-            {todofetch.status === 'success' && (
-              <SimpleBar style={{ maxHeight: '45vh' }}>
-                <div className="todo-view">
-                  {todofetch.data.map((data) => (
-                    <div className="card card-main">
-                      <i className="fas fa-check-square todoo-checkbox"></i>
-                      <p className="todo-p">{data.title}</p>
-                      <i className="far fa-trash-alt todo-trash"></i>
-                    </div>
-                  ))}
-                </div>
-              </SimpleBar>
-            )}
-            {todofetch.status !== 'success' && todofetch.status}
-            {todofetch.status === 'loading' && <div>Loading</div>}
-            {todofetch.status === 'error' && <div>{todofetch.error}</div>}
           </div>
           <div className="input-group mb-3 todo-add-container">
             <input
@@ -124,31 +103,18 @@ function App() {
         <div className="grid-part-3 shadow p-3 mb-5 bg-white rounded">
           <div className="todo-container">
             <h6>To Do</h6>
-            <SimpleBar style={{ maxHeight: '45vh' }}>
-              <div className="todo-view">
-                {todo.map((addedTodos) => (
-                  <div className="card card-main">
-                    <input
-                      type="checkBox"
-                      onClick={() => {
-                        editCompleted();
-                      }}
-                      className="todo-checkbox"
-                    ></input>
-                    <p
-                      onClick={() => editTodo(addedTodos.input, addedTodos.id)}
-                      className="todo-p"
-                    >
-                      {addedTodos.input}
-                    </p>
-                    <i
-                      onClick={() => deleteTodo(addedTodos.id)}
-                      className="far fa-trash-alt todo-trash"
-                    ></i>
-                  </div>
-                ))}
-              </div>
-            </SimpleBar>
+
+            <div className="todo-view" ref={ref}>
+              {todo.map((addedTodos) => (
+                <Todo
+                  key={uniqid()}
+                  {...addedTodos}
+                  deleteTodo={deleteTodo}
+                  editTodo={editTodo}
+                  toggleCompleted={toggleCompleted}
+                />
+              ))}
+            </div>
 
             <div className="input-group mb-3 todo-add-container">
               <input
@@ -173,7 +139,7 @@ function App() {
                   type="button"
                   id="button-add"
                 >
-                  Add Todo
+                  {typeof editMode !== 'undefined' ? 'Edit todo' : 'Add Todo'}
                 </button>
               </div>
             </div>
