@@ -1,6 +1,6 @@
 import React from 'react';
 
-const AddTodo = ({ e, input, handleChange, addTodo }) => {
+const AddTodo = ({ e, input, handleChange, addTodo, editMode }) => {
   return (
     <div className="input-group mb-3 todo-add-container">
       <input

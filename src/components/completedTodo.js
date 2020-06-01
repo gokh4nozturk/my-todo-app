@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Todo = ({
+const CompletedTodo = ({
   title,
   completed,
   deleteTodo,
@@ -9,24 +9,20 @@ const Todo = ({
   toggleCompleted,
 }) => {
   const completedClass = completed ? 'todo-p-check' : '';
-  const completedTodos = !completed && title;
+  const completedTodos = completed && title;
   return (
     <div className="card card-main">
-      <input
-        type="checkBox"
-        checked={completed}
-        onChange={() => {
-          toggleCompleted(id);
-        }}
-        className={`todo-checkbox`}
-      />
       <p
         onClick={() => editTodo(title, id)}
         className={`todo-p ${completedClass}`}
       >
         {completedTodos}
       </p>
+      <i
+        onClick={() => deleteTodo(id)}
+        className="far fa-trash-alt todo-trash"
+      />
     </div>
   );
 };
-export default Todo;
+export default CompletedTodo;
