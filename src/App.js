@@ -4,7 +4,6 @@ import './App.css';
 import Todo from './components/todo';
 import uniqid from 'uniqid';
 import AddTodo from './components/addTodo';
-import CompletedTodo from './components/completedTodo';
 
 function App() {
   const [todo, setTodo] = useState([]);
@@ -102,17 +101,6 @@ function App() {
         <div className="grid-part-3 shadow p-3 mb-5 bg-white rounded">
           <div className="todo-container"></div>
           <h5 className="h5">Completed Todos</h5>
-          <div className="todo-view" ref={ref}>
-            {todo.map((addedTodos) => (
-              <CompletedTodo
-                key={uniqid()}
-                {...addedTodos}
-                deleteTodo={deleteTodo}
-                editTodo={editTodo}
-                toggleCompleted={toggleCompleted}
-              />
-            ))}
-          </div>
         </div>
       </div>
     </div>
