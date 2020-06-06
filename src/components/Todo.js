@@ -7,6 +7,7 @@ const Todo = ({
   id,
   editTodo,
   toggleCompleted,
+  todoCompleted,
 }) => {
   const completedClass = completed ? 'todo-p-check' : '';
   return (

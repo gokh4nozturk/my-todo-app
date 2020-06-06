@@ -7,8 +7,9 @@ import AddTodo from './components/addTodo';
 
 function App() {
   const [todo, setTodo] = useState([]);
-  const [editMode, setEditMode] = useState(undefined);
+  const [editMode, setEditMode] = useState();
   const [input, setInput] = useState('');
+  const [input2, setInput2] = useState('');
   const ref = useRef();
 
   useEffect(() => {
@@ -44,7 +45,6 @@ function App() {
       alert('doldur');
     }
   };
-
   const deleteTodo = (id) => {
     const newArray = todo.filter((todos) => todos.id !== id);
     setTodo(newArray);
@@ -61,7 +61,6 @@ function App() {
     });
     setTodo(editTodo);
   };
-
   const handleChange = (e) => {
     setInput(e.currentTarget.value);
   };
@@ -76,6 +75,8 @@ function App() {
             input={input}
             handleChange={handleChange}
             addTodo={addTodo}
+            inputID={1}
+            inputName={input}
           />
         </div>
 
@@ -91,9 +92,17 @@ function App() {
                   deleteTodo={deleteTodo}
                   editTodo={editTodo}
                   toggleCompleted={toggleCompleted}
+                  todoCompleted={false}
                 />
               ))}
             </div>
+            <AddTodo
+              input={input2}
+              handleChange={handleChange}
+              addTodo={addTodo}
+              inputID={2}
+              inputName={input2}
+            />
           </div>
         </div>
 
