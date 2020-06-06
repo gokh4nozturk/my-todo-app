@@ -1,15 +1,15 @@
-import React, { useState, useEffect, useRef } from 'react';
-import Axios from 'axios';
-import './App.css';
-import Todo from './components/todo';
-import uniqid from 'uniqid';
-import AddTodo from './components/addTodo';
+import React, { useState, useEffect, useRef } from "react";
+import Axios from "axios";
+import "./App.css";
+import Todo from "./components/todo";
+import uniqid from "uniqid";
+import AddTodo from "./components/addTodo";
 
 function App() {
   const [todo, setTodo] = useState([]);
   const [editMode, setEditMode] = useState();
-  const [input, setInput] = useState('');
-  const [input2, setInput2] = useState('');
+  const [input, setInput] = useState("");
+  const [input2, setInput2] = useState("");
   const ref = useRef();
 
   useEffect(() => {
@@ -24,13 +24,13 @@ function App() {
 
   const dataLoad = async () => {
     const data = await Axios.get(
-      'https://jsonplaceholder.typicode.com/todos'
+      "https://jsonplaceholder.typicode.com/todos"
     ).then((response) => response.data);
     setTodo(data);
   };
   const addTodo = () => {
-    if (input !== '' || input !== '') {
-      if (typeof editMode !== 'undefined') {
+    if (input !== "" || input !== "") {
+      if (typeof editMode !== "undefined") {
         const todos = todo.map((todo) => {
           if (todo.id === editMode) return { ...todo, title: input };
           return todo;
@@ -40,9 +40,9 @@ function App() {
       } else {
         setTodo([...todo, { title: input, id: uniqid() }]);
       }
-      setInput('');
+      setInput("");
     } else {
-      alert('doldur');
+      alert("doldur");
     }
   };
   const deleteTodo = (id) => {
@@ -77,6 +77,7 @@ function App() {
             addTodo={addTodo}
             inputID={1}
             inputName={input}
+            onClick={addTodo}
           />
         </div>
 
@@ -102,6 +103,7 @@ function App() {
               addTodo={addTodo}
               inputID={2}
               inputName={input2}
+              onClick={addTodo}
             />
           </div>
         </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const AddTodo = ({
   inputName,
@@ -8,6 +8,7 @@ const AddTodo = ({
   handleChange,
   addTodo,
   editMode,
+  onClick,
 }) => {
   return (
     <div className="input-group mb-3 todo-add-container">
@@ -22,7 +23,7 @@ const AddTodo = ({
           handleChange(e);
         }}
         onKeyPress={(e) => {
-          if (e.key === 'Enter') {
+          if (e.key === "Enter") {
             addTodo();
           }
         }}
@@ -30,12 +31,12 @@ const AddTodo = ({
 
       <div className="input-group-append">
         <button
-          onClick={addTodo}
+          onClick={onClick}
           className="btn btn-primary"
           type="button"
           id="button-add"
         >
-          {typeof editMode !== 'undefined' ? 'Edit todo' : 'Add Todo'}
+          {typeof editMode !== "undefined" ? "Edit todo" : "Add Todo"}
         </button>
       </div>
     </div>
