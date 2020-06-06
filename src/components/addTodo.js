@@ -1,37 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 
-const AddTodo = ({
-  inputName,
-  inputID,
-  input,
-  input2,
-  handleChange,
-  addTodo,
-  editMode,
-  onClick,
-}) => {
+const AddTodo = ({ autoFocus = false, defaultVal = "", editMode, onClick }) => {
+  const [val, setVal] = useState(defaultVal);
   return (
     <div className="input-group mb-3 todo-add-container">
       <input
-        id={inputID}
-        value={input}
-        name={inputName}
+        autoFocus={autoFocus}
+        value={val}
         type="text"
         className="form-control"
         placeholder="enter to do"
         onChange={(e) => {
-          handleChange(e);
+          setVal(e.currentTarget.value);
         }}
         onKeyPress={(e) => {
           if (e.key === "Enter") {
-            addTodo();
+            onClick(val);
           }
         }}
       />
 
       <div className="input-group-append">
         <button
-          onClick={onClick}
+          onClick={() => onClick(val)}
           className="btn btn-primary"
           type="button"
           id="button-add"

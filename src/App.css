@@ -43,6 +43,10 @@ body {
   min-width: 120px;
 }
 
+.card-main.edit {
+  grid-template-columns: 1fr;
+}
+
 .todo-checkbox {
   grid-column: 1/2;
   cursor: pointer;

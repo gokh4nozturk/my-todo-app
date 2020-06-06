@@ -5,11 +5,13 @@ import Todo from "./components/todo";
 import uniqid from "uniqid";
 import AddTodo from "./components/addTodo";
 
+// https://www.themoviedb.org/?language=en-US
+// https://www.themoviedb.org/documentation/api?language=en-US
+// https://developers.themoviedb.org/3
+
 function App() {
   const [todo, setTodo] = useState([]);
   const [editMode, setEditMode] = useState();
-  const [input, setInput] = useState("");
-  const [input2, setInput2] = useState("");
   const ref = useRef();
 
   useEffect(() => {
@@ -28,19 +30,18 @@ function App() {
     ).then((response) => response.data);
     setTodo(data);
   };
-  const addTodo = () => {
-    if (input !== "" || input !== "") {
+  const addTodo = (value) => {
+    if (value !== "") {
       if (typeof editMode !== "undefined") {
         const todos = todo.map((todo) => {
-          if (todo.id === editMode) return { ...todo, title: input };
+          if (todo.id === editMode) return { ...todo, title: value };
           return todo;
         });
         setTodo(todos);
         setEditMode(undefined);
       } else {
-        setTodo([...todo, { title: input, id: uniqid() }]);
+        setTodo([...todo, { title: value, id: uniqid() }]);
       }
-      setInput("");
     } else {
       alert("doldur");
     }
@@ -52,17 +53,13 @@ function App() {
   const editTodo = (inputEdit, inputId) => {
     setEditMode(inputId);
     alert(`${inputEdit} için düzenleme yapacaksınız!`);
-    setInput(inputEdit);
   };
   const toggleCompleted = (id) => {
-    const editTodo = todo.map((title) => {
+    const mappedTodo = todo.map((title) => {
       if (title.id === id) return { ...title, completed: !title.completed };
       return title;
     });
-    setTodo(editTodo);
-  };
-  const handleChange = (e) => {
-    setInput(e.currentTarget.value);
+    setTodo(mappedTodo);
   };
 
   return (
@@ -71,14 +68,7 @@ function App() {
         <h4 className="app-title">My To Do</h4>
         {/* parça 1 */}
         <div className="grid-part-1">
-          <AddTodo
-            input={input}
-            handleChange={handleChange}
-            addTodo={addTodo}
-            inputID={1}
-            inputName={input}
-            onClick={addTodo}
-          />
+          <AddTodo onClick={addTodo} />
         </div>
 
         {/* parça 2 */}
@@ -90,21 +80,16 @@ function App() {
                 <Todo
                   key={uniqid()}
                   {...addedTodos}
+                  addTodo={addTodo}
                   deleteTodo={deleteTodo}
                   editTodo={editTodo}
                   toggleCompleted={toggleCompleted}
                   todoCompleted={false}
+                  isEdit={addedTodos.id === editMode}
                 />
               ))}
             </div>
-            <AddTodo
-              input={input2}
-              handleChange={handleChange}
-              addTodo={addTodo}
-              inputID={2}
-              inputName={input2}
-              onClick={addTodo}
-            />
+            <AddTodo onClick={addTodo} />
           </div>
         </div>
 
