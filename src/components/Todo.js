@@ -10,7 +10,6 @@ const Todo = ({
   id,
   editTodo,
   toggleCompleted,
-  todoCompleted,
   isEdit,
 }) => {
   const completedClass = completed ? "todo-p-check" : "";
