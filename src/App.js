@@ -1,13 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import Axios from "axios";
 import "./App.css";
-import Todo from "./components/todo";
+import Todo from "./components/Todo";
 import uniqid from "uniqid";
 import AddTodo from "./components/addTodo";
-
-// https://www.themoviedb.org/?language=en-US
-// https://www.themoviedb.org/documentation/api?language=en-US
-// https://developers.themoviedb.org/3
 
 function App() {
   const [todo, setTodo] = useState([]);
