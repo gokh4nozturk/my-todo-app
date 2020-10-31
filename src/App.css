@@ -30,7 +30,7 @@ body {
   flex-wrap: nowrap;
   flex-direction: column;
   padding: 5px;
-  overflow: scroll;
+  overflow-y: auto;
   height: 45vh;
   margin-top: 1vh;
 }
@@ -98,4 +98,8 @@ body {
 .app-title {
   margin-top: 2.5vh;
   margin-left: 1vh;
+}
+
+.input-group-append button {
+  height: fit-content;
 }
